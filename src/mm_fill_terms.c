@@ -30066,10 +30066,18 @@ fluid_stress_conf( double Pi[DIM][DIM],
 	      for(b=0; b<wim; b++)
 		{
 		  for(j=0; j<ei->dof[var]; j++)
-		    {
-          	      d_Pi->v[p][q][b][j]  = mus*bf[var+q]->grad_phi_e[j][b][p][q];
-	              d_Pi->v[p][q][b][j] += mus*bf[var+p]->grad_phi_e[j][b][q][p];
-
+                    {
+                      dbl q_grad_phi_e_j_b_p_q;
+                      dbl p_grad_phi_e_j_b_q_p;
+                      if(pd->CoordinateSystem != CYLINDRICAL) {
+                        p_grad_phi_e_j_b_q_p = bf[var+p]->grad_phi_e[j][b][q][p];
+                        q_grad_phi_e_j_b_p_q = bf[var+q]->grad_phi_e[j][b][p][q];
+                      } else {
+                        p_grad_phi_e_j_b_q_p = bf[var]->grad_phi_e[j][b][q][p];
+                        q_grad_phi_e_j_b_p_q = bf[var]->grad_phi_e[j][b][p][q];
+                      }
+                      d_Pi->v[p][q][b][j]  = mus*q_grad_phi_e_j_b_p_q;
+                      d_Pi->v[p][q][b][j] += mus*p_grad_phi_e_j_b_q_p;
 		      d_Pi->v[p][q][b][j] += d_mus->v[b][j]*gamma[p][q];
 		      d_Pi->v[p][q][b][j] -= d_tau_p_dv[p][q][b][j];
 		      if(pd->v[POLYMER_STRESS11])
@@ -30084,9 +30092,8 @@ fluid_stress_conf( double Pi[DIM][DIM],
 				{
 				  lambda = ve[mode]->time_const;
 				}
-
-			      d_Pi->v[p][q][b][j] += mup*bf[var+q]->grad_phi_e[j][b][p][q];
-			      d_Pi->v[p][q][b][j] += mup*bf[var+p]->grad_phi_e[j][b][q][p];
+                              d_Pi->v[p][q][b][j]  = mup*q_grad_phi_e_j_b_p_q;
+                              d_Pi->v[p][q][b][j] += mup*p_grad_phi_e_j_b_q_p;
 			      d_Pi->v[p][q][b][j] += d_mup->v[b][j]*(gamma[p][q]-gamma_cont[p][q]);
 			      // Log-conformation tensor stress
 			      d_Pi->v[p][q][b][j] += d_mup->v[b][j]/lambda*(exp_s[mode][p][q]-(double)delta(p,q));
