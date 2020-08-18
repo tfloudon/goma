@@ -7,6 +7,7 @@
 #include "mm_fill_poisson.h"
 #include "rf_fem_const.h"
 
+
 int assemble_poisson() {
 
   int eqn = R_POISSON;
@@ -65,4 +66,18 @@ int assemble_poisson() {
   }
 
   return 0;
+}
+
+void poisson_side_sin_bc(dbl func[DIM],
+                         dbl d_func[DIM][MAX_VARIABLE_TYPES + MAX_CONC][MDE],
+                         dbl alpha,
+                         dbl beta,
+                         dbl gamma,
+                         dbl omega,
+                         dbl zeta)
+{
+  func[0] = alpha * sin(beta * fv->x[0] + gamma * fv->x[1] + omega * fv->x[2]) + zeta;
+
+  // if we had derivatives
+  // d_func[0][POISSON][j] = something * phi_j
 }
