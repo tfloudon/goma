@@ -49,7 +49,10 @@ enum type_elem {BILINEAR_QUAD = 0,
 		BIQUAD_SHELL,    /* 2D, quadratic elements for 3D shells */
 		BILINEAR_TRISHELL,  /* 2D, linear triangular elements for 3D shells */
                 P1_SHELL,	/* 2D, discontinuous linear elements for 3D shells  */
-                P0_SHELL	/* 2D, discontinuous constant elements for 3D shells */
+                P0_SHELL,	/* 2D, discontinuous constant elements for 3D shells */
+
+        LINEAR_N1CURL_TET, /* 3D linear tetrahedral vector edge elements */ 
+        LINEAR_N1CURL_HEX  /* 3D linear hexahedral vector edge elements */
 }
 Type_Elem;
 
@@ -94,6 +97,15 @@ Type_Elem;
 #define DPSI_S            1
 #define DPSI_T            2
 #define DPSI_U            3
+
+/* vector shape functions */
+
+#define PSI_S             4
+#define PSI_T             5
+#define PSI_U             6
+#define CURL_PSI_S        7
+#define CURL_PSI_T        8
+#define CURL_PSI_U        9
 
 /* define maximum quantities */
 

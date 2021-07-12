@@ -1400,6 +1400,426 @@ shape (const double s,		/* quadrature point coordinates */
     }
     break;
 
+  case LINEAR_N1CURL_HEX: /* Linear Nedelec edge elements */
+
+    /* Use Inode to indicate which edge */
+    if (Inode >= 12){
+      (void) printf("This element has 12 nodes!  Exiting...");
+      exit(-1);
+    }
+    
+    switch( Iquant ){  /* select quantity */
+    case PSI_S:        /* shape function s-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.125*(1.0 - t)*(1.0 - u);
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = 0.125*(1.0 + t)*(1.0 - u);
+	break;
+      case 3:
+	value = 0.0;
+	break;
+      case  4:
+	value = 0.125*(1.0 - t)*(1.0 + u);
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      case  6:
+	value = 0.125*(1.0 + t)*(1.0 + u);
+	break;
+      case  7:
+	value = 0.0;
+	break;
+      case 8:
+	value = 0.0;
+	break;
+      case  9:
+	value = 0.0;
+	break;
+      case 10:
+	value = 0.0;
+	break;
+      case 11:
+	value = 0.0;
+	break;
+      }
+      break;
+
+     case PSI_T:       /* shape function t-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.0;
+	break;
+      case 1:
+	value = 0.125*(1.0 + s)*(1.0 - u);
+	break;
+      case 2:
+	value = 0.0;
+	break;
+      case 3:
+	value = 0.125*(1.0 - s)*(1.0 - u);
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = 0.125*(1.0 + s)*(1.0 + u);
+	break;
+      case  6:
+	value = 0.0;
+	break;
+      case  7:
+	value = 0.125*(1.0 - s)*(1.0 + u);
+	break;
+      case 8:
+	value = 0.0;
+	break;
+      case  9:
+	value = 0.0;
+	break;
+      case 10:
+	value = 0.0;
+	break;
+      case 11:
+	value = 0.0;
+	break;
+      }
+      break;
+
+      case PSI_U:      /* shape function u-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.0;
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = 0.0;
+	break;
+      case 3:
+	value = 0.0;
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      case  6:
+	value = 0.0;
+	break;
+      case  7:
+	value = 0.0;
+	break;
+      case 8:
+	value = 0.125*(1.0 - s)*(1.0 - t);
+	break;
+      case  9:
+	value = 0.125*(1.0 + s)*(1.0 - t);
+	break;
+      case 10:
+	value = 0.125*(1.0 - s)*(1.0 + t);
+	break;
+      case 11:
+	value = 0.125*(1.0 + s)*(1.0 + t);
+	break;
+      }
+      break;
+     
+    case CURL_PSI_S:   /* s-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.0;
+	break;
+      case 1:
+	value = 0.125*(1.0 + s);
+	break;
+      case 2:
+	value = 0.0;
+	break;
+      case 3:
+	value = 0.125*(1.0 - s);
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = -0.125*(1.0 + s);
+	break;
+      case  6:
+	value = 0.0;
+	break;
+      case  7:
+	value = -0.125*(1.0 - s);
+	break;
+      case 8:
+	value = -0.125*(1.0 - s);
+	break;
+      case 9:
+	value = -0.125*(1.0 + s);
+	break;
+      case 10:
+	value = 0.125*(1.0 - s);
+	break;
+      case 11:
+	value = 0.125*(1.0 + s);
+	break;
+      }
+      break;
+
+    case CURL_PSI_T:   /* t-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = -0.125*(1.0 - t);
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = -0.125*(1.0 + t);
+	break;
+      case 3:
+	value = 0.0;
+	break;
+      case  4:
+	value = 0.125*(1.0 - t);
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      case  6:
+	value = 0.125*(1.0 + t);
+	break;
+      case  7:
+	value = 0.0;
+	break;
+      case 8:
+	value = 0.125*(1.0 - t);
+	break;
+      case 9:
+	value = -0.125*(1.0 - t);
+	break;
+      case 10:
+	value = 0.125*(1.0 + t);
+	break;
+      case 11:
+	value = -0.125*(1.0 + t);
+	break;
+      }
+      break;
+
+    case CURL_PSI_U:   /* u-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.125*(1.0 - u);
+	break;
+      case 1:
+	value = 0.125*(1.0 - u);
+	break;
+      case 2:
+	value = -0.125*(1.0 - u);
+	break;
+      case 3:
+	value = -0.125*(1.0 - u);
+	break;
+      case  4:
+	value = 0.125*(1.0 + u);
+	break;
+      case  5:
+	value = 0.125*(1.0 + u);
+	break;
+      case  6:
+	value = -0.125*(1.0 + u);
+	break;
+      case  7:
+	value = -0.125*(1.0 + u);
+	break;
+      case 8:
+	value = 0.0;
+	break;
+      case 9:
+	value = 0.0;
+	break;
+      case 10:
+	value = 0.0;
+	break;
+      case 11:
+	value = 0.0;
+	break;
+      }
+      break;
+
+    default:
+      fprintf(stderr, "Bad LINEAR_N1CURL_HEX case: %d!\n", Iquant);
+      EH( -1, "Bad selection of phi,dphids, etc.");
+      break;
+    }
+
+    break;
+
+  case LINEAR_N1CURL_TET: /* Linear Nedelec edge elements */
+
+    /* Use Inode to indicate which edge */
+    if (Inode >= 6){
+      (void) printf("This element has 6 nodes!  Exiting...");
+      exit(-1);
+    }
+    
+    switch( Iquant ){  /* select quantity */
+    case PSI_S:        /* shape function s-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 1.0 - t - u;
+	break;
+      case 1:
+	value = -t;
+	break;
+      case 2:
+	value = t;
+	break;
+      case 3:
+	value = u;
+	break;
+      case  4:
+	value = -u;
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      }
+      break;
+
+     case PSI_T:       /* shape function t-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = s;
+	break;
+      case 1:
+	value = s;
+	break;
+      case 2:
+	value = 1.0 - s - u;
+	break;
+      case 3:
+	value = u;
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = -u;
+	break;
+      }
+      break;
+
+      case PSI_U:      /* shape function u-component */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = s;
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = t;
+	break;
+      case 3:
+	value = 1 - s - t;
+	break;
+      case  4:
+	value = s;
+	break;
+      case  5:
+	value = t;
+	break;
+      }
+      break;
+     
+    case CURL_PSI_S:   /* s-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 0.0;
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = 2.0;
+	break;
+      case 3:
+	value = -2.0;
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = 2.0;
+	break;
+      }
+      break;
+
+    case CURL_PSI_T:   /* t-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = -2.0;
+	break;
+      case 1:
+	value = 0.0;
+	break;
+      case 2:
+	value = 0.0;
+	break;
+      case 3:
+	value = 2.0;
+	break;
+      case  4:
+	value = -2.0;
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      }
+      break;
+
+    case CURL_PSI_U:   /* u-component of curl of shape fn */
+      switch( Inode ){ /* select specific shape function */
+      case 0:
+	value = 2.0;
+	break;
+      case 1:
+	value = 2.0;
+	break;
+      case 2:
+	value = -2.0;
+	break;
+      case 3:
+	value = 0.0;
+	break;
+      case  4:
+	value = 0.0;
+	break;
+      case  5:
+	value = 0.0;
+	break;
+      }
+      break;
+
+    default:
+      fprintf(stderr, "Bad LINEAR_N1CURL_TET case: %d!\n", Iquant);
+      EH( -1, "Bad selection of phi,dphids, etc.");
+      break;
+    }
+
+    break;
+
+
+
   default:
     (void) fprintf(stderr, 
            "Element type not defined or not yet implemented.\n");
